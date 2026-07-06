@@ -1,0 +1,29 @@
+# Virtual environments
+venv/
+.venv/
+myenv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local tool/agent state
+.agents/
+
+# Model outputs
+resNetModel/checkpoints/
+*.pt
+*.pth
+
+# Datasets and local data
+data/
+*.csv
+*.xlsx
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

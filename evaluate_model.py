@@ -16,7 +16,7 @@ from sklearn.metrics import (
     ConfusionMatrixDisplay,
 )
 
-# import Allen's dataset loader from resNetModel/
+# imports Allen's dataset loader from resNetModel/
 PROJECT_ROOT = Path(__file__).resolve().parent
 RESNET_DIR = PROJECT_ROOT / "resNetModel"
 

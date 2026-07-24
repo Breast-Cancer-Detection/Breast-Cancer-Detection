@@ -1,0 +1,47 @@
+server/
+│
+├── app/
+│   ├── __init__.py
+│   ├── main.py              # Main FastAPI app initialization & CORS setup
+│   ├── config.py            # Environment variables (model paths, allowed origins)
+│   │
+│   ├── api/                 # API endpoints / routes
+│   │   ├── __init__.py
+│   │   ├── routes.py        # /predict and health check endpoints
+│   │   └── dependencies.py  # Shared dependencies (e.g., getting the loaded model)
+│   │
+│   ├── services/            # Business & ML Logic
+│   │   ├── __init__.py
+│   │   ├── model_loader.py  # Loads weights into memory ONCE at startup
+│   │   ├── preprocessing.py # Image resizing, normalization, tensor conversions
+│   │   └── inference.py     # Executes model pass & formats output/masks
+│   │
+│   └── schemas/             # Request & Response Data Models (Pydantic)
+│       ├── __init__.py
+│       └── predict.py       # Defines structure of JSON sent back to frontend
+│
+├── models/                  # Local storage for model weights (.pth, .onnx)
+│   └── breast_cancer_unet.pth (ignored in git via .gitignore)
+│
+├── tests/                   # Backend API & model unit tests
+│   └── test_api.py
+│
+├── .gitignore
+├── Dockerfile               # Production container config
+├── requirements.txt         # Dependencies (fastapi, uvicorn, torch, pillow, etc.)
+└── README.md
+
+--------------------------------------------------------------------------------------------------------------
+
+How model will interact with FastAPI:
+
+Save ONLY the state_dict like
+         torch.save(model.state_dict(), "models/breast_cancer_weights.pth")
+
+To run inference on your FastAPI server, the server must:
+
+Import or define the exact model architecture class (e.g., UNet or ResNet50).
+
+Instantiate the empty architecture on CPU/GPU.
+
+Load the saved weights into that architecture via .load_state_dict().

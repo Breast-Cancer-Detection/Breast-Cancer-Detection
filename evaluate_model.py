@@ -175,6 +175,6 @@ plt.show()
 
 
 print("\nSaved results to:")
-print(OUTPUT_DIR / "metrics.json")
-print(OUTPUT_DIR / "classification_report.txt")
-print(OUTPUT_DIR / "confusion_matrix.png")
+print(OUTPUT_DIR / "metrics2.json")
+print(OUTPUT_DIR / "classification_report2.txt")
+print(OUTPUT_DIR / "confusion_matrix2.png")

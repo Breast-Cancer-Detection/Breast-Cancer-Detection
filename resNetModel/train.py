@@ -1,3 +1,6 @@
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
 import argparse
 import json
 from pathlib import Path
@@ -8,6 +11,7 @@ from torch import nn, optim
 from busiDataset import create_data_loaders
 from modelhyperparams import TrainingConfig
 from resnetModel import build_resnet50
+from modelFactory import build_model
 
 
 def parse_args():
@@ -30,6 +34,7 @@ def parse_args():
         action="store_true",
         help="Unfreeze the ResNet50 backbone instead of training only the final classifier.",
     )
+    parser.add_argument("--model-name", type=str,default="resnet50", choices=["resnet50","densenet121", "efficientnet_b0", "vgg16"])
     return parser.parse_args()
 
 
@@ -92,11 +97,12 @@ def main():
         num_workers=args.num_workers,
     )
 
-    model = build_resnet50(
+    model = build_model(
+        model_name=args.model_name,
         num_classes=len(loaders["classes"]),
         freeze_backbone=not args.fine_tune,
         dropout=args.dropout,
-    ).to(device)
+        ).to(device)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.AdamW(
@@ -106,8 +112,8 @@ def main():
     )
 
     best_val_accuracy = 0.0
-    best_model_path = args.output_dir / "best_resnet50_busi.pt"
-
+    best_model_path = args.output_dir / f"best_{args.model_name}_histology.pt"
+    print(f"Model: {args.model_name}")
     print(f"Device: {device}")
     print(f"Classes: {loaders['classes']}")
     print(f"Training images: {len(loaders['train'].dataset)}")

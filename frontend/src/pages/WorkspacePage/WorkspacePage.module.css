@@ -1,0 +1,223 @@
+.root {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.root h1 {
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.lede {
+  color: var(--color-text-muted);
+  font-size: 15px;
+  margin: 0 0 14px;
+}
+
+.privacy {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.dropzone,
+.dropzoneActive,
+.validating {
+  border-radius: var(--radius-xl);
+  padding: 64px 30px;
+  text-align: center;
+}
+
+.dropzone {
+  border: 2px dashed var(--color-border);
+  cursor: pointer;
+  background: var(--color-bg);
+}
+
+.dropzone:hover {
+  border-color: var(--color-brand-soft);
+}
+
+.dropzoneActive {
+  border: 2px dashed var(--color-brand-mid);
+  background: var(--color-bg-tint);
+}
+
+.validating {
+  border: 1.5px solid var(--color-border);
+}
+
+.dropzone svg {
+  margin: 0 auto 16px;
+}
+
+.dropTitle {
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 6px;
+}
+
+.dropTitleActive {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--color-brand);
+}
+
+.dropHint {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.dropMeta {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-brand-mid);
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 1s linear infinite;
+}
+
+.invalid {
+  border: 1.5px solid var(--color-error);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  background: var(--color-error-bg);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.invalid svg {
+  flex-shrink: 0;
+}
+
+.invalidTitle {
+  font-weight: 700;
+  font-size: 15.5px;
+  color: var(--color-error);
+  margin-bottom: 6px;
+}
+
+.invalid p {
+  color: var(--color-brand-deep);
+  font-size: 14px;
+  margin: 0 0 16px;
+}
+
+.ready {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+}
+
+.ready img {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.readyMeta {
+  flex: 1 1 220px;
+}
+
+.fileName {
+  font-weight: 700;
+  font-size: 15px;
+  word-break: break-all;
+}
+
+.readyMeta > div:nth-child(2) {
+  color: var(--color-text-muted);
+  font-size: 12.5px;
+  margin-top: 5px;
+}
+
+.modelInput {
+  color: var(--color-text-muted);
+  font-size: 11.5px;
+  margin-top: 3px;
+}
+
+.readyActions {
+  display: flex;
+  gap: 8px;
+}
+
+.removeBtn {
+  color: var(--color-error) !important;
+}
+
+.scenario {
+  margin-top: 20px;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+}
+
+.scenario label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-brand-deep);
+  margin-bottom: 8px;
+}
+
+.scenario select {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  font: inherit;
+  font-size: 13.5px;
+  background: var(--color-bg);
+}
+
+.analyze {
+  margin-top: 20px;
+  border-radius: var(--radius-lg) !important;
+  padding: 16px !important;
+  font-size: 16px !important;
+  box-shadow: 0 10px 24px rgba(143, 23, 76, 0.25);
+}
+
+.simulate {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.simulate button {
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}

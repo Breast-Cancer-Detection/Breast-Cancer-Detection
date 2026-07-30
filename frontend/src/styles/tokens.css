@@ -1,0 +1,48 @@
+:root {
+  /* Brand */
+  --color-brand: #8f174c;
+  --color-brand-deep: #5b1233;
+  --color-brand-mid: #d94179;
+  --color-brand-soft: #ec6998;
+  --color-brand-blush: #f5a4bf;
+
+  /* Surfaces */
+  --color-bg: #fffcfd;
+  --color-bg-tint: #fff3f7;
+  --color-bg-muted: #f8eef5;
+  --color-border: #ecd9e1;
+
+  /* Text */
+  --color-text: #2d1522;
+  --color-text-strong: #361628;
+  --color-text-muted: #765966;
+
+  /* Status */
+  --color-success: #31725a;
+  --color-success-bg: #eaf4ef;
+  --color-caution: #a96c17;
+  --color-caution-bg: #fbf3e7;
+  --color-error: #b83a52;
+  --color-error-bg: #fbeaee;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+
+  /* Layout */
+  --header-height: 78px;
+  --max-width-wide: 1380px;
+  --max-width-content: 1180px;
+  --max-width-narrow: 940px;
+
+  /* Breakpoints (documented; used in JS hooks) */
+  --bp-mobile: 680px;
+  --bp-tablet: 1024px;
+  --bp-nav: 1040px;
+}

@@ -1,0 +1,51 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+}
+
+.selected {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.compact {
+  gap: 7px;
+  font-size: 10.5px;
+}
+
+.label {
+  flex-shrink: 0;
+}
+
+.track {
+  flex: 1;
+  height: 6px;
+  background: var(--color-bg-muted);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.compact .track {
+  height: 5px;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--color-brand-mid);
+  border-radius: 4px;
+}
+
+.selected .fill {
+  background: var(--color-brand);
+}
+
+.pct {
+  width: 34px;
+  text-align: right;
+  flex-shrink: 0;
+  font-weight: 700;
+}

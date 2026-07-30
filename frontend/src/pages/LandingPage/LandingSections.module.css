@@ -1,0 +1,400 @@
+.featureStrip {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 24px 40px 56px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.featureItem {
+  flex: 1 1 220px;
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 6px 20px;
+  border-right: 1px solid var(--color-border);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.featureItem:first-child {
+  padding-left: 0;
+}
+
+.featureItem:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.featureItem svg {
+  flex-shrink: 0;
+}
+
+.howItWorks {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 40px 84px;
+}
+
+.howItWorks h2 {
+  font-size: clamp(28px, 3.6vw, 42px);
+  font-weight: 800;
+  text-align: center;
+  margin: 0 0 44px;
+  letter-spacing: -0.01em;
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.stepsLine {
+  position: absolute;
+  top: 22px;
+  left: 14%;
+  right: 14%;
+  height: 2px;
+  background: var(--color-border);
+  z-index: 0;
+}
+
+.step {
+  flex: 1 1 240px;
+  position: relative;
+  z-index: 1;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.stepNum {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-brand);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  margin: 0 auto 16px;
+}
+
+.stepTitle {
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.step p {
+  color: var(--color-text-muted);
+  font-size: 14.5px;
+  margin: 0;
+}
+
+.explainable {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 40px 84px;
+}
+
+.sectionIntro {
+  max-width: 620px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.sectionIntro h2 {
+  font-size: clamp(28px, 3.8vw, 44px);
+  font-weight: 800;
+  margin: 0 0 14px;
+}
+
+.sectionIntro p {
+  color: var(--color-text-muted);
+  font-size: 16.5px;
+}
+
+.explainPanel {
+  background: var(--color-text-strong);
+  border-radius: var(--radius-2xl);
+  padding: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
+  align-items: center;
+}
+
+.explainViewer {
+  flex: 1 1 380px;
+}
+
+.viewerWrap {
+  margin-top: 20px;
+  max-width: 420px;
+}
+
+.explainCopy {
+  flex: 1 1 300px;
+  color: var(--color-bg);
+}
+
+.explainClass {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.explainConf {
+  color: var(--color-brand-blush);
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.explainCopy p {
+  color: rgba(255, 252, 253, 0.6);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.analysis {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 40px 90px;
+}
+
+.analysis .sectionIntro h2 {
+  font-size: clamp(26px, 3.4vw, 38px);
+}
+
+.analysis .sectionIntro p {
+  font-size: 15.5px;
+}
+
+.window {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 24px 60px rgba(91, 18, 51, 0.1);
+  overflow: hidden;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.windowChrome {
+  display: flex;
+  gap: 6px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-muted);
+}
+
+.windowChrome span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.windowChrome span:nth-child(1) {
+  background: var(--color-brand-blush);
+}
+
+.windowChrome span:nth-child(2) {
+  background: var(--color-brand-soft);
+}
+
+.windowChrome span:nth-child(3) {
+  background: var(--color-brand);
+}
+
+.windowBody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 28px;
+}
+
+.windowImage {
+  flex: 1 1 320px;
+  min-width: 260px;
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-text);
+  aspect-ratio: 1 / 1;
+  max-width: 340px;
+}
+
+.windowImage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.windowOverlay {
+  opacity: 0.45;
+}
+
+.windowMeta {
+  flex: 1 1 300px;
+}
+
+.status {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-success);
+  margin-bottom: 8px;
+}
+
+.resultClass {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.resultConf {
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.responsible {
+  background: var(--color-bg-muted);
+  padding: 56px 40px;
+}
+
+.responsibleInner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: center;
+}
+
+.responsibleCopy {
+  flex: 2 1 380px;
+}
+
+.responsibleCopy h2 {
+  font-size: clamp(24px, 2.8vw, 32px);
+  font-weight: 800;
+  margin: 0 0 12px;
+}
+
+.responsibleCopy p {
+  color: var(--color-text-muted);
+  font-size: 15px;
+  margin: 0;
+}
+
+.responsibleLink {
+  flex: 1 1 220px;
+}
+
+.responsibleLink a {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.finalCta {
+  background: var(--color-brand);
+  padding: 76px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.finalRibbon {
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+  width: 380px;
+  opacity: 0.18;
+}
+
+.finalInner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.finalInner h2 {
+  color: var(--color-bg);
+  font-size: clamp(26px, 3.6vw, 40px);
+  font-weight: 800;
+  margin: 0 0 14px;
+}
+
+.finalInner p {
+  color: var(--color-brand-blush);
+  font-size: 15.5px;
+  margin: 0 0 28px;
+}
+
+.finalActions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.finalPrimary {
+  background: var(--color-bg) !important;
+  color: var(--color-brand) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 16px 26px !important;
+  font-size: 15.5px !important;
+}
+
+.finalSecondary {
+  border: 2px solid rgba(255, 252, 253, 0.5);
+  color: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: 14px 24px;
+  font-weight: 700;
+  font-size: 15.5px;
+}
+
+.finalSecondary:hover {
+  color: var(--color-brand-blush);
+}
+
+@media (max-width: 900px) {
+  .stepsLine {
+    display: none;
+  }
+
+  .featureItem {
+    border-right: none;
+    padding: 10px 0;
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .featureStrip,
+  .howItWorks,
+  .explainable,
+  .analysis,
+  .responsible,
+  .finalCta {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .explainPanel {
+    padding: 24px;
+  }
+}

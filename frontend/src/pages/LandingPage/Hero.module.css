@@ -1,0 +1,162 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #fff3f7 0%, #fffcfd 55%, #f8eef5 100%);
+}
+
+.inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  position: relative;
+  padding: 20px 40px 0;
+}
+
+.visual {
+  flex: 1 1 440px;
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bgTile {
+  position: absolute;
+  left: 0;
+  top: 8%;
+  width: 60%;
+  height: 60%;
+  object-fit: cover;
+  opacity: 0.055;
+  filter: blur(1px);
+  border-radius: 24px;
+}
+
+.glow {
+  position: absolute;
+  right: 6%;
+  top: 12%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ec6998 0%, transparent 70%);
+  opacity: 0.15;
+}
+
+.ribbon,
+.ribbonSoft {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ribbon {
+  opacity: 0.9;
+}
+
+.ribbonSoft {
+  opacity: 0.5;
+}
+
+.researcher {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 430px);
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 40px rgba(91, 18, 51, 0.18));
+}
+
+.copy {
+  flex: 1 1 460px;
+  position: relative;
+  z-index: 4;
+}
+
+.copyDesktop {
+  padding: 60px 0 40px 56px;
+}
+
+.copyMobile {
+  padding: 32px 0 0;
+}
+
+.eyebrow {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: var(--color-brand);
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: clamp(38px, 5vw, 70px);
+  line-height: 1.06;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+}
+
+.title span {
+  color: var(--color-brand);
+}
+
+.lede {
+  font-size: 17px;
+  color: var(--color-text-muted);
+  max-width: 480px;
+  margin: 0 0 28px;
+}
+
+.ctaRow {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.ctaPrimary {
+  border-radius: var(--radius-lg) !important;
+  padding: 16px 26px !important;
+  font-size: 15.5px !important;
+}
+
+.ctaSecondary {
+  background: none;
+  border: 2px solid var(--color-border);
+  color: var(--color-text-strong);
+  border-radius: var(--radius-lg);
+  padding: 14px 24px;
+  font-weight: 700;
+  font-size: 15.5px;
+  display: inline-block;
+}
+
+.ctaSecondary:hover {
+  color: var(--color-brand);
+}
+
+.subline {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.spacer {
+  height: 56px;
+}
+
+@media (max-width: 720px) {
+  .inner {
+    padding: 12px 20px 0;
+  }
+
+  .visual {
+    min-height: 420px;
+  }
+}

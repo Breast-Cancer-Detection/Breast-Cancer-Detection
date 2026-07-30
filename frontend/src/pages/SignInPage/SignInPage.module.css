@@ -1,0 +1,206 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.panel {
+  flex: 0 0 44%;
+  background: linear-gradient(160deg, #5b1233, #8f174c 60%, #d94179);
+  position: relative;
+  overflow: hidden;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.panelRibbon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.22;
+}
+
+.panelBg {
+  position: absolute;
+  right: -10%;
+  top: 8%;
+  width: 60%;
+  opacity: 0.08;
+  border-radius: 20px;
+}
+
+.panel > :not(svg):not(img) {
+  position: relative;
+}
+
+.panelCopy {
+  position: relative;
+  max-width: 340px;
+}
+
+.panelHeadline {
+  color: var(--color-bg);
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 18px;
+}
+
+.panelThumbs {
+  display: flex;
+  gap: 8px;
+}
+
+.panelThumbs img {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.mobileBar {
+  width: 100%;
+  background: linear-gradient(120deg, #5b1233, #8f174c);
+  padding: 34px 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.formWrap {
+  flex: 1 1 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 44px 24px;
+}
+
+.form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: 14.5px;
+  margin: 0 0 26px;
+}
+
+.error {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.form input[type='email'],
+.form input[type='password'],
+.form input[type='text'] {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  font: inherit;
+  font-size: 15px;
+  margin-bottom: 18px;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.form input:focus {
+  border-color: var(--color-brand-mid);
+  outline: none;
+}
+
+.pwWrap {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.pwWrap input {
+  margin-bottom: 0;
+  padding-right: 44px;
+}
+
+.pwToggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  padding: 4px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 14px 0 24px;
+  font-size: 13.5px;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  font-weight: 400 !important;
+  margin-bottom: 0 !important;
+}
+
+.row a {
+  font-weight: 600;
+}
+
+.submit {
+  margin-bottom: 16px;
+  padding: 14px !important;
+  font-size: 15.5px !important;
+}
+
+.demo {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.demo button {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.back {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+}

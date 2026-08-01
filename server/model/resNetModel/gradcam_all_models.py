@@ -8,7 +8,7 @@ import torch.nn.functional as F
 from PIL import Image
 from torchvision import transforms
 
-from modelFactory import build_model
+from server.model.resNetModel.modelFactory import build_model
 
 
 CLASS_NAMES = [

@@ -8,10 +8,10 @@ from pathlib import Path
 import torch
 from torch import nn, optim
 
-from busiDataset import create_data_loaders
-from modelhyperparams import TrainingConfig
-from resnetModel import build_resnet50
-from modelFactory import build_model
+from server.model.resNetModel.busiDataset import create_data_loaders
+from server.model.resNetModel.modelhyperparams import TrainingConfig
+from server.model.resNetModel.resnetModel import build_resnet50
+from server.model.resNetModel.modelFactory import build_model
 
 
 def parse_args():

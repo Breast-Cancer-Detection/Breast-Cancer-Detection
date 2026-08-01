@@ -447,6 +447,8 @@ def main():
     if args.target_class is None:
         figure.suptitle(
             "Grad-CAM Comparison: Each Model's Predicted Class",
+            f"Ensemble Prediction: {CLASS_NAMES[ensemble_class]} ",
+            f"({ensemble_confidence * 100:.1f}%)",
             fontsize=16,
         )
     else:
@@ -485,6 +487,19 @@ def main():
         )
 
     print(f"\nSaved side-by-side Grad-CAM to:\n{args.output}")
+    all_probabilities = np.stack(
+    [results[name]["probabilities"] for name in MODEL_NAMES]
+    )
+
+    ensemble_probabilities = all_probabilities.mean(axis=0)
+    ensemble_class = int(np.argmax(ensemble_probabilities))
+    ensemble_confidence = float(ensemble_probabilities[ensemble_class])
+
+    print("\nENSEMBLE RESULT")
+    print("-" * 40)
+    print(f"Prediction: {CLASS_NAMES[ensemble_class]}")
+    print(f"Confidence: {ensemble_confidence * 100:.2f}%")
+    
 
 
 if __name__ == "__main__":

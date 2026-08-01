@@ -4,7 +4,7 @@ from typing import Iterable
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset, Subset, random_split
 
-from dataAugmentation import build_eval_transforms, build_train_transforms
+from server.model.resNetModel.dataAugmentation import build_eval_transforms, build_train_transforms
 
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp"}

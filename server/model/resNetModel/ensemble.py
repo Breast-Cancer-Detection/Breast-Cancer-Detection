@@ -14,8 +14,8 @@ from sklearn.metrics import (
     recall_score,
 )
 
-from busiDataset import create_data_loaders
-from modelFactory import build_model
+from server.model.resNetModel.busiDataset import create_data_loaders
+from server.model.resNetModel.modelFactory import build_model
 
 
 MODEL_NAMES = [

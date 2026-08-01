@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Breast Cancer AI/ML Project
 
 Academic explainable-AI prototype for breast image analysis (ResNet50 + Grad-CAM), with a React research interface.
@@ -38,3 +39,6 @@ Explainable AI breast cancer prototype/   Original HTML mockup (reference)
 ```
 
 More frontend detail: [frontend/README.md](frontend/README.md)
+=======
+# Breast_Cancer_AI-ML_Project
+>>>>>>> amina

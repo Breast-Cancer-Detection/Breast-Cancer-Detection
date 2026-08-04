@@ -12,10 +12,10 @@ __pycache__/
 # Local tool/agent state
 .agents/
 
-# Model outputs
-resNetModel/checkpoints/
-*.pt
-*.pth
+# # Model outputs
+# resNetModel/checkpoints/
+# *.pt
+# *.pth
 
 # Datasets and local data
 data/

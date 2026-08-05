@@ -1,44 +1,84 @@
-<<<<<<< HEAD
-# Breast Cancer AI/ML Project
+# Breast Cancer Detection
 
-Academic explainable-AI prototype for breast image analysis (ResNet50 + Grad-CAM), with a React research interface.
+Academic explainable-AI prototype for breast image analysis, with a FastAPI backend and React research interface.
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) **v18+** (v20 recommended)
+- [Python](https://www.python.org/downloads/) 3.11+
+- [Node.js](https://nodejs.org/) 18+ (20 recommended)
 - npm (comes with Node.js)
 
-## Start the frontend
+## First-Time Backend Setup
 
-From the repo root after cloning:
+Run this once after cloning the repo:
 
-```bash
+```powershell
+cd server
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+cd ..
+```
+
+This creates a local backend virtual environment at `server/.venv`. Do not reinstall dependencies every time.
+
+## Start The Backend
+
+From the repo root:
+
+```powershell
+.\server\start-backend.ps1
+```
+
+The API runs at:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Start The Frontend
+
+From the repo root:
+
+```powershell
 cd frontend
 npm install
 npm run dev
 ```
 
-Then open the URL Vite prints (usually **http://localhost:5173**).
-
-### Useful commands
-
-| Command | What it does |
-|---------|----------------|
-| `npm run dev` | Start local development server |
-| `npm run build` | Production build → `frontend/dist` |
-| `npm run preview` | Preview the production build locally |
-
-All of these run from the `frontend/` folder.
-
-## Project layout
+Then open the URL Vite prints, usually:
 
 ```text
-frontend/     React UI (Vite + TypeScript)
-Explainable AI breast cancer prototype/   Original HTML mockup (reference)
-*.py          Training / data utilities
+http://localhost:5173
+```
+
+## Daily Development
+
+Use two terminals:
+
+```powershell
+.\server\start-backend.ps1
+```
+
+```powershell
+cd frontend
+npm run dev
+```
+
+## Useful Frontend Commands
+
+Run these from `frontend/`:
+
+| Command | What it does |
+|---------|--------------|
+| `npm run dev` | Start local development server |
+| `npm run build` | Create production build in `frontend/dist` |
+| `npm run preview` | Preview the production build locally |
+
+## Project Layout
+
+```text
+frontend/   React UI (Vite + TypeScript)
+server/     FastAPI backend and model inference code
 ```
 
 More frontend detail: [frontend/README.md](frontend/README.md)
-=======
-# Breast_Cancer_AI-ML_Project
->>>>>>> amina

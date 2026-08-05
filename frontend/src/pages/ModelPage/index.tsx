@@ -22,8 +22,8 @@ export function ModelPage() {
 
       <h2>Model evaluation</h2>
       <p className={styles.sub}>
-        Test support: 400 images. Results reflect the repository&apos;s current test split and do
-        not establish clinical effectiveness.
+        Test support: 400 images. Results reflect the repository&apos;s current four-model ensemble
+        evaluation and do not establish clinical effectiveness.
       </p>
 
       <div className={styles.metrics}>
@@ -68,18 +68,18 @@ export function ModelPage() {
       <h3>Confusion matrix</h3>
       <img
         src="/evaluation_results/confusion_matrix.png"
-        alt="Confusion matrix comparing true vs predicted class on the current test split"
+        alt="Ensemble confusion matrix comparing true vs predicted class on the current test split"
         className={styles.matrix}
       />
 
       <h2>Architecture & preprocessing</h2>
       <div className={styles.archGrid}>
-        <div>ResNet50, ImageNet-pretrained</div>
-        <div>Backbone frozen by default</div>
-        <div>Classifier head: Dropout 0.3 + Linear</div>
+        <div>Backbones: DenseNet121, EfficientNet-B0, VGG16, and ResNet50</div>
+        <div>Ensemble: equal-weight soft voting across model probabilities</div>
+        <div>Framework: PyTorch CNN classifiers</div>
+        <div>Classifier heads adapted for four output classes</div>
         <div>Loss: Cross-entropy · AdamW</div>
         <div>LR 0.0001 · Weight decay 0.0001</div>
-        <div>Batch size 16 · 8 epochs (default)</div>
       </div>
       <p className={styles.bodySm}>
         Images are converted to RGB, resized to 224 × 224, converted to a tensor, and normalized
@@ -89,9 +89,9 @@ export function ModelPage() {
       </p>
       <p className={styles.bodySm}>Supported extensions: JPG, JPEG, PNG, BMP.</p>
       <p className={styles.bodySm}>
-        Grad-CAM uses activations from the final ResNet block (<code>model.layer4[-1]</code>) to
-        build a class-specific map, normalized, resized to 224 × 224, and overlaid at a default
-        opacity of 45% with a jet-style color scale.
+        Grad-CAM uses each model&apos;s final convolutional layer to build a class-specific map,
+        normalized, resized to 224 × 224, and overlaid at a default opacity of 45% with a
+        jet-style color scale.
       </p>
 
       <h2>Output classes</h2>
@@ -112,8 +112,8 @@ export function ModelPage() {
 
       <h2>Limitations</h2>
       <ul className={styles.limits}>
-        <li>Current evaluation accuracy is 75%</li>
-        <li>Benign recall is currently 60%</li>
+        <li>Current evaluation accuracy is 86.75%</li>
+        <li>Benign recall is currently 76.52%</li>
         <li>The model may produce false positives and false negatives</li>
         <li>Image quality and dataset differences may affect results</li>
         <li>The model has not been established as clinically effective</li>

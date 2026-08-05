@@ -88,6 +88,14 @@ export function Hero() {
           <div className={styles.subline}>
             Four-class analysis &middot; Grad-CAM explainability &middot; Transparent model insights
           </div>
+          <a
+            className={styles.repoLink}
+            href="https://github.com/Breast-Cancer-Detection"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View repository &rarr;
+          </a>
         </div>
       </div>
       <div className={styles.spacer} />

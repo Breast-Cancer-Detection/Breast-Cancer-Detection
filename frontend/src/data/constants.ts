@@ -1,6 +1,6 @@
 export const IMAGE_MODALITY_LABEL = 'breast medical image'
 
-export const SHOW_DEMO_CONTROLS = true
+export const SHOW_DEMO_CONTROLS = import.meta.env.VITE_SHOW_DEMO_CONTROLS === 'true'
 
 export const HEATMAP_OPACITY_DEFAULT = 45
 

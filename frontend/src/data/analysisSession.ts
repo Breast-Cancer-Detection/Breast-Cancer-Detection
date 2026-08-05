@@ -1,23 +1,25 @@
-import type { UploadFileMeta } from '../types'
+import type { PredictionResponse, UploadFileMeta } from '../types'
 
 const STORAGE_KEY = 'analysis'
 
 export type AnalysisSession = {
   scenario: string
   uploadFile: UploadFileMeta | null
+  prediction: PredictionResponse | null
 }
 
 export function readAnalysisSession(): AnalysisSession {
   try {
     const raw = sessionStorage.getItem(STORAGE_KEY)
-    if (!raw) return { scenario: 'cis', uploadFile: null }
+    if (!raw) return { scenario: 'cis', uploadFile: null, prediction: null }
     const parsed = JSON.parse(raw) as Partial<AnalysisSession>
     return {
       scenario: parsed.scenario || 'cis',
       uploadFile: parsed.uploadFile ?? null,
+      prediction: parsed.prediction ?? null,
     }
   } catch {
-    return { scenario: 'cis', uploadFile: null }
+    return { scenario: 'cis', uploadFile: null, prediction: null }
   }
 }
 

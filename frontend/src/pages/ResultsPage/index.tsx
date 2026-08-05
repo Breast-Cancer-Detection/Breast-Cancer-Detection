@@ -29,6 +29,30 @@ const TONE_BG = {
   success: '#EAF4EF',
 }
 
+function getReliabilityWarning(
+  prediction: ReturnType<typeof readAnalysisSession>['prediction'],
+) {
+  if (!prediction) return null
+
+  const sortedScores = Object.values(prediction.probabilities).sort((a, b) => b - a)
+  const topScore = sortedScores[0] ?? 0
+  const secondScore = sortedScores[1] ?? 0
+  const individualPredictions = Object.values(prediction.individual_predictions || {})
+  const modelVotes = new Set(individualPredictions.map((item) => item.predicted_class))
+  const lowConfidence = prediction.confidence < 0.6
+  const closeDecision = topScore - secondScore < 0.15
+  const highDisagreement = modelVotes.size >= 3
+
+  if (!lowConfidence && !closeDecision && !highDisagreement) return null
+
+  const reasons = []
+  if (lowConfidence) reasons.push('low ensemble confidence')
+  if (closeDecision) reasons.push('close class scores')
+  if (highDisagreement) reasons.push('model disagreement')
+
+  return `This image may be outside the model's expected histology input range (${reasons.join(', ')}). Treat this result as unreliable.`
+}
+
 export function ResultsPage() {
   const navigate = useNavigate()
   const [session] = useState(() => readAnalysisSession())
@@ -58,13 +82,22 @@ export function ResultsPage() {
   }, [fullscreen])
 
   const cur = SCENARIOS[scenario] || SCENARIOS.cis
-  const label = displayClass(cur.rawClass)
-  const priority = reviewPriority(cur.rawClass, cur.confidence)
+  const prediction = session.prediction
+  const rawClass = prediction?.predicted_class || cur.rawClass
+  const confidence = prediction?.confidence ?? cur.confidence
+  const probs = prediction?.probabilities || cur.probs
+  const gradcams = prediction?.gradcams || {}
+  const gradcamEntries = Object.entries(gradcams)
+  const primaryGradcam = gradcams.resnet50?.overlay || gradcamEntries[0]?.[1].overlay
+  const label = displayClass(rawClass)
+  const priority = reviewPriority(rawClass, confidence)
   const tone = priorityTone(priority)
-  const isLowConfidence = cur.confidence < 0.6
-  const isGradcamFailed = !!cur.gradcamFailed
+  const isLowConfidence = confidence < 0.6
+  const isGradcamFailed = prediction ? gradcamEntries.length === 0 : !!cur.gradcamFailed
+  const reliabilityWarning = getReliabilityWarning(prediction)
   const upload = session.uploadFile
   const originalSrc = upload?.previewUrl || '/assets/sample-original.png'
+  const overlaySrc = primaryGradcam || '/assets/sample-gradcam.png'
 
   const onScenarioChange = (id: string) => {
     setScenario(id)
@@ -110,6 +143,13 @@ export function ResultsPage() {
         </div>
       )}
 
+      {reliabilityWarning && (
+        <div className={styles.inputWarning}>
+          <div className={styles.inputWarningTitle}>Input reliability warning</div>
+          <p>{reliabilityWarning}</p>
+        </div>
+      )}
+
       <div className={styles.grid}>
         <div className={styles.viewerCol}>
           <div className={styles.viewerTools}>
@@ -133,10 +173,28 @@ export function ResultsPage() {
           <GradCamViewer
             mode={viewMode}
             originalSrc={originalSrc}
+            overlaySrc={overlaySrc}
             opacity={opacity / 100}
             zoom={zoom}
             showOverlayFailed={isGradcamFailed}
           />
+
+          {!isGradcamFailed && gradcamEntries.length > 0 && (
+            <div className={styles.modelHeatmaps}>
+              {gradcamEntries.map(([modelName, gradcam]) => (
+                <div key={modelName} className={styles.modelHeatmap}>
+                  <img src={gradcam.overlay} alt={`${gradcam.display_name} Grad-CAM overlay`} />
+                  <div>
+                    <span>{gradcam.display_name}</span>
+                    <span>
+                      {displayClass(gradcam.predicted_class)} ·{' '}
+                      {(gradcam.confidence * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           {isGradcamFailed ? (
             <div className={styles.gradcamFail}>
@@ -173,15 +231,15 @@ export function ResultsPage() {
             The model assigned its highest classification score to {label}.
           </p>
           <div className={styles.confLine}>
-            {(cur.confidence * 100).toFixed(1)}%{' '}
+            {(confidence * 100).toFixed(1)}%{' '}
             <span>model confidence</span>
           </div>
 
           <div className={styles.scoresTitle}>Model classification scores</div>
           <div className={styles.scores} role="list" aria-label="Model classification scores across all four classes">
             {CLASS_ORDER.map((key) => {
-              const v = cur.probs[key] || 0
-              const selected = key === cur.rawClass
+              const v = probs[key] || 0
+              const selected = key === rawClass
               const pct = (v * 100).toFixed(1)
               return (
                 <div key={key} role="listitem" className={styles.scoreItem}>
@@ -231,7 +289,7 @@ export function ResultsPage() {
                 {upload ? `${(upload.size / 1024).toFixed(0)} KB` : '412 KB'}
               </div>
               <div>Model input: 224 × 224 px</div>
-              <div>Processing time: {900 + Math.round(cur.confidence * 100)} ms</div>
+              <div>Processing time: {900 + Math.round(confidence * 100)} ms</div>
             </AccordionItem>
             <AccordionItem
               title="Model information"
@@ -293,7 +351,7 @@ export function ResultsPage() {
             <img src={originalSrc} alt="Original image, fullscreen" />
             {viewMode === 'overlay' && !isGradcamFailed && (
               <img
-                src="/assets/sample-gradcam.png"
+                src={overlaySrc}
                 alt="Grad-CAM overlay, fullscreen"
                 style={{ opacity: opacity / 100 }}
               />

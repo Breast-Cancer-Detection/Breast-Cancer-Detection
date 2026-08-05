@@ -7,6 +7,7 @@ import {
 } from '../../data/constants'
 import { SCENARIO_OPTIONS } from '../../data/scenarios'
 import { writeAnalysisSession } from '../../data/analysisSession'
+import { requestPrediction } from '../../api/prediction'
 import { Button } from '../../components/ui/Button'
 import styles from './WorkspacePage.module.css'
 
@@ -15,8 +16,10 @@ export function WorkspacePage() {
   const inputRef = useRef<HTMLInputElement>(null)
   const [uploadState, setUploadState] = useState<UploadState>('empty')
   const [uploadFile, setUploadFile] = useState<UploadFileMeta | null>(null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [uploadError, setUploadError] = useState('')
   const [scenario, setScenario] = useState('cis')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const triggerDialog = () => inputRef.current?.click()
 
@@ -25,7 +28,7 @@ export function WorkspacePage() {
     setUploadError('')
     const name = file.name || 'upload'
     const ext = (name.split('.').pop() || '').toLowerCase()
-    const supported = ['jpg', 'jpeg', 'png', 'bmp']
+    const supported = ['jpg', 'jpeg', 'png', 'bmp', 'webp']
 
     if (name.toLowerCase().includes('mask')) {
       setUploadState('invalid')
@@ -36,7 +39,7 @@ export function WorkspacePage() {
     }
     if (!supported.includes(ext)) {
       setUploadState('invalid')
-      setUploadError('Unsupported file type. Please upload a JPG, JPEG, PNG, or BMP image.')
+      setUploadError('Unsupported file type. Please upload a JPG, JPEG, PNG, BMP, or WEBP image.')
       return
     }
 
@@ -63,6 +66,7 @@ export function WorkspacePage() {
           height: img.naturalHeight,
           previewUrl: result,
         })
+        setSelectedFile(file)
         setUploadState('ready')
         setUploadError('')
       }
@@ -103,13 +107,33 @@ export function WorkspacePage() {
   const removeFile = () => {
     setUploadState('empty')
     setUploadFile(null)
+    setSelectedFile(null)
     setUploadError('')
     if (inputRef.current) inputRef.current.value = ''
   }
 
-  const startAnalysis = () => {
-    writeAnalysisSession({ scenario, uploadFile })
-    navigate('/processing')
+  const startAnalysis = async () => {
+    if (!selectedFile || !uploadFile) return
+
+    setIsSubmitting(true)
+    setUploadError('')
+
+    try {
+      const prediction = await requestPrediction(selectedFile)
+      writeAnalysisSession({ scenario, uploadFile, prediction })
+      navigate('/processing')
+    } catch (error) {
+      setUploadState('invalid')
+      setUploadFile(null)
+      setSelectedFile(null)
+      setUploadError(
+        error instanceof Error
+          ? error.message
+          : 'The analysis service could not process this image.',
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const fileSizeStr = uploadFile ? `${(uploadFile.size / 1024).toFixed(0)} KB` : ''
@@ -119,7 +143,7 @@ export function WorkspacePage() {
       <input
         ref={inputRef}
         type="file"
-        accept=".jpg,.jpeg,.png,.bmp"
+        accept=".jpg,.jpeg,.png,.bmp,.webp"
         className={styles.hiddenInput}
         onChange={onFileChange}
       />
@@ -156,7 +180,7 @@ export function WorkspacePage() {
           </svg>
           <div className={styles.dropTitle}>Drag and drop an image here</div>
           <div className={styles.dropHint}>or browse from your device</div>
-          <div className={styles.dropMeta}>JPG, JPEG, PNG or BMP · Minimum 32 × 32 pixels</div>
+          <div className={styles.dropMeta}>JPG, JPEG, PNG, BMP or WEBP · Minimum 32 × 32 pixels</div>
         </div>
       )}
 
@@ -235,8 +259,13 @@ export function WorkspacePage() {
             </div>
           )}
 
-          <Button fullWidth className={styles.analyze} onClick={startAnalysis}>
-            Analyze Image
+          <Button
+            fullWidth
+            className={styles.analyze}
+            onClick={startAnalysis}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Sending to backend...' : 'Analyze Image'}
           </Button>
         </>
       )}

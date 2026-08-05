@@ -12,12 +12,6 @@ export function Footer() {
             An academic explainable-AI research prototype for breast image analysis,
             built by a student research team.
           </p>
-          <a
-            className={styles.repo}
-            href="https://github.com/vamsi-1111/Breast_Cancer_AI-ML_Project"
-          >
-            View repository &rarr;
-          </a>
         </div>
         <div className={styles.navBlock}>
           <div className={styles.navTitle}>Navigate</div>

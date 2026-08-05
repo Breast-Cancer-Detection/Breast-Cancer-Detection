@@ -5,6 +5,16 @@
   background: var(--color-text);
   aspect-ratio: 1 / 1;
   width: 100%;
+  user-select: none;
+}
+
+.zoomed {
+  cursor: grab;
+  touch-action: none;
+}
+
+.dragging {
+  cursor: grabbing;
 }
 
 .base {
@@ -14,6 +24,7 @@
   height: 100%;
   object-fit: cover;
   transform-origin: center;
+  will-change: transform;
 }
 
 .overlay {
@@ -30,6 +41,7 @@
   height: 100%;
   object-fit: cover;
   transform-origin: center;
+  will-change: transform;
 }
 
 .sideOverlay {
@@ -45,4 +57,5 @@
   height: 100%;
   object-fit: cover;
   transform-origin: center;
+  will-change: transform;
 }

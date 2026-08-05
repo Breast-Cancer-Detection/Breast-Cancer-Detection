@@ -6,8 +6,6 @@ import {
   SCENARIOS,
   SCENARIO_OPTIONS,
   displayClass,
-  priorityTone,
-  reviewPriority,
 } from '../../data/scenarios'
 import {
   readAnalysisSession,
@@ -18,40 +16,8 @@ import { ViewModeTabs } from '../../components/ui/ViewModeTabs'
 import { GradCamViewer } from '../../components/explainability/GradCamViewer'
 import styles from './ResultsPage.module.css'
 
-const TONE_COLORS = {
-  caution: '#A96C17',
-  error: '#B83A52',
-  success: '#31725A',
-}
-const TONE_BG = {
-  caution: '#FBF3E7',
-  error: '#FBEAEE',
-  success: '#EAF4EF',
-}
-
-function getReliabilityWarning(
-  prediction: ReturnType<typeof readAnalysisSession>['prediction'],
-) {
-  if (!prediction) return null
-
-  const sortedScores = Object.values(prediction.probabilities).sort((a, b) => b - a)
-  const topScore = sortedScores[0] ?? 0
-  const secondScore = sortedScores[1] ?? 0
-  const individualPredictions = Object.values(prediction.individual_predictions || {})
-  const modelVotes = new Set(individualPredictions.map((item) => item.predicted_class))
-  const lowConfidence = prediction.confidence < 0.6
-  const closeDecision = topScore - secondScore < 0.15
-  const highDisagreement = modelVotes.size >= 3
-
-  if (!lowConfidence && !closeDecision && !highDisagreement) return null
-
-  const reasons = []
-  if (lowConfidence) reasons.push('low ensemble confidence')
-  if (closeDecision) reasons.push('close class scores')
-  if (highDisagreement) reasons.push('model disagreement')
-
-  return `This image may be outside the model's expected histology input range (${reasons.join(', ')}). Treat this result as unreliable.`
-}
+const GUIDANCE_COLOR = '#A96C17'
+const GUIDANCE_BG = '#FBF3E7'
 
 export function ResultsPage() {
   const navigate = useNavigate()
@@ -66,6 +32,7 @@ export function ResultsPage() {
   const [openModelInfo, setOpenModelInfo] = useState(false)
   const [openInterp, setOpenInterp] = useState(true)
   const [openLimits, setOpenLimits] = useState(false)
+  const [selectedGradcamModel, setSelectedGradcamModel] = useState('resnet50')
 
   useEffect(() => {
     if (!fullscreen) return
@@ -88,16 +55,14 @@ export function ResultsPage() {
   const probs = prediction?.probabilities || cur.probs
   const gradcams = prediction?.gradcams || {}
   const gradcamEntries = Object.entries(gradcams)
-  const primaryGradcam = gradcams.resnet50?.overlay || gradcamEntries[0]?.[1].overlay
+  const selectedGradcam =
+    gradcams[selectedGradcamModel] || gradcams.resnet50 || gradcamEntries[0]?.[1]
   const label = displayClass(rawClass)
-  const priority = reviewPriority(rawClass, confidence)
-  const tone = priorityTone(priority)
   const isLowConfidence = confidence < 0.6
   const isGradcamFailed = prediction ? gradcamEntries.length === 0 : !!cur.gradcamFailed
-  const reliabilityWarning = getReliabilityWarning(prediction)
   const upload = session.uploadFile
   const originalSrc = upload?.previewUrl || '/assets/sample-original.png'
-  const overlaySrc = primaryGradcam || '/assets/sample-gradcam.png'
+  const overlaySrc = selectedGradcam?.overlay || '/assets/sample-gradcam.png'
 
   const onScenarioChange = (id: string) => {
     setScenario(id)
@@ -127,8 +92,6 @@ export function ResultsPage() {
         <div className={styles.meta}>
           <span className={styles.complete}>● Analysis complete</span>
           <span>{upload?.name || 'sample-histology-tile.png'}</span>
-          <span className={styles.sep}>|</span>
-          <span>analysis_demo_{scenario}</span>
         </div>
         <Button onClick={() => navigate('/workspace')}>Analyze Another Image</Button>
       </div>
@@ -143,12 +106,15 @@ export function ResultsPage() {
         </div>
       )}
 
-      {reliabilityWarning && (
-        <div className={styles.inputWarning}>
-          <div className={styles.inputWarningTitle}>Input reliability warning</div>
-          <p>{reliabilityWarning}</p>
-        </div>
-      )}
+      <div className={styles.inputWarning}>
+        <div className={styles.inputWarningTitle}>Input responsibility caveat</div>
+        <p>
+          This research app classifies supported breast medical images into four learned classes:
+          Benign, Carcinoma In Situ, Invasive Carcinoma, and Normal. Results depend on submitting
+          the correct original image type; masks, unrelated images, or poor-quality inputs can
+          produce unreliable predictions.
+        </p>
+      </div>
 
       <div className={styles.grid}>
         <div className={styles.viewerCol}>
@@ -180,20 +146,35 @@ export function ResultsPage() {
           />
 
           {!isGradcamFailed && gradcamEntries.length > 0 && (
-            <div className={styles.modelHeatmaps}>
-              {gradcamEntries.map(([modelName, gradcam]) => (
-                <div key={modelName} className={styles.modelHeatmap}>
-                  <img src={gradcam.overlay} alt={`${gradcam.display_name} Grad-CAM overlay`} />
-                  <div>
-                    <span>{gradcam.display_name}</span>
-                    <span>
-                      {displayClass(gradcam.predicted_class)} ·{' '}
-                      {(gradcam.confidence * 100).toFixed(1)}%
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <>
+              <div className={styles.selectedHeatmap}>
+                Viewing {selectedGradcam?.display_name || 'selected model'} Grad-CAM
+              </div>
+              <div className={styles.modelHeatmaps}>
+                {gradcamEntries.map(([modelName, gradcam]) => {
+                  const isSelected = selectedGradcam === gradcam
+
+                  return (
+                    <button
+                      key={modelName}
+                      type="button"
+                      className={`${styles.modelHeatmap} ${isSelected ? styles.modelHeatmapSelected : ''}`}
+                      onClick={() => setSelectedGradcamModel(modelName)}
+                      aria-pressed={isSelected}
+                    >
+                      <img src={gradcam.overlay} alt={`${gradcam.display_name} Grad-CAM overlay`} />
+                      <div>
+                        <span>{gradcam.display_name}</span>
+                        <span>
+                          {displayClass(gradcam.predicted_class)} ·{' '}
+                          {(gradcam.confidence * 100).toFixed(1)}%
+                        </span>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </>
           )}
 
           {isGradcamFailed ? (
@@ -261,14 +242,14 @@ export function ResultsPage() {
             })}
           </div>
 
-          <div className={styles.priority} style={{ background: TONE_BG[tone] }}>
-            <div className={styles.priorityEyebrow}>PROTOTYPE REVIEW PRIORITY</div>
-            <div className={styles.priorityText} style={{ color: TONE_COLORS[tone] }}>
-              {priority}
+          <div className={styles.priority} style={{ background: GUIDANCE_BG }}>
+            <div className={styles.priorityEyebrow}>INTERPRETATION GUIDANCE</div>
+            <div className={styles.priorityText} style={{ color: GUIDANCE_COLOR }}>
+              Expert review recommended
             </div>
             <div className={styles.priorityNote}>
-              This priority is generated from the predicted class and model confidence. It is not
-              a clinical triage decision.
+              This guidance is generated from the model prediction and confidence score. It does
+              not replace professional medical review.
             </div>
           </div>
 
@@ -296,9 +277,11 @@ export function ResultsPage() {
               open={openModelInfo}
               onToggle={() => setOpenModelInfo((v) => !v)}
             >
-              <div>Architecture: ResNet50 · PyTorch</div>
+              <div>Architecture: DenseNet121, EfficientNet-B0, VGG16, and ResNet50</div>
+              <div>Ensemble: equal-weight soft voting across the four CNN outputs</div>
+              <div>Framework: PyTorch</div>
               <div>Input: RGB, 224 × 224</div>
-              <div>Explainability: Grad-CAM, final ResNet block</div>
+              <div>Explainability: Grad-CAM from each model&apos;s final convolutional layer</div>
               <div>Model version: prototype</div>
             </AccordionItem>
             <AccordionItem
@@ -319,7 +302,7 @@ export function ResultsPage() {
               last
             >
               <p>
-                Current test accuracy is 75.0% and does not establish clinical effectiveness.
+                Current test accuracy is 86.75% and does not establish clinical effectiveness.
                 Confidence scores may be incorrect, and Grad-CAM is a coarse explanatory map, not
                 a segmentation mask. Expert review remains necessary.
               </p>

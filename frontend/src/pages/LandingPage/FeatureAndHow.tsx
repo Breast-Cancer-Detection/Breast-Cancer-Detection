@@ -53,13 +53,54 @@ export function FeatureStrip() {
   )
 }
 
+export function MissionStatement() {
+  return (
+    <section className={styles.mission}>
+      <div className={styles.missionIntro}>
+        <div className={styles.missionEyebrow}>MISSION STATEMENT</div>
+        <h2>Responsible AI for transparent breast image research</h2>
+        <p>
+          Our mission is to build an explainable breast health research tool that supports careful
+          image review without replacing professional judgment. The system uses a four-model CNN
+          ensemble to classify supported breast medical images into Benign, Carcinoma In Situ,
+          Invasive Carcinoma, and Normal, while keeping uncertainty, limitations, and visual
+          evidence visible to the user.
+        </p>
+      </div>
+      <div className={styles.missionGrid}>
+        <div className={styles.missionItem}>
+          <h3>Ensemble model design</h3>
+          <p>
+            DenseNet121, EfficientNet-B0, VGG16, and ResNet50 contribute class probabilities that
+            are combined through equal-weight soft voting for a more balanced research prediction.
+          </p>
+        </div>
+        <div className={styles.missionItem}>
+          <h3>Transparent technology stack</h3>
+          <p>
+            PyTorch powers model inference, FastAPI serves predictions, and React presents an
+            interactive workflow for uploading images, reviewing scores, and inspecting outputs.
+          </p>
+        </div>
+        <div className={styles.missionItem}>
+          <h3>Explainable visualizations</h3>
+          <p>
+            Grad-CAM heatmaps show which image regions influenced each model&apos;s prediction, helping
+            users compare model attention instead of treating the result as a black box.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function HowItWorks() {
   const steps = [
     { n: 1, title: 'Upload', body: `Select a supported ${IMAGE_MODALITY_LABEL}.` },
     {
       n: 2,
-      title: 'Analyze',
-      body: 'The image is prepared and evaluated by the ResNet50 model.',
+      title: 'Ensemble',
+      body: 'The image is prepared and evaluated by a soft-voting ensemble of CNN models.',
     },
     {
       n: 3,

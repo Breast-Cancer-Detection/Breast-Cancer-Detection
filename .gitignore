@@ -8,6 +8,8 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+backend.*.log
+.matplotlib/
 
 # Local tool/agent state
 .agents/

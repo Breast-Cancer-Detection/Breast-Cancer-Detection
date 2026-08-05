@@ -168,11 +168,18 @@
   color: var(--color-text-muted);
 }
 
+.selectedHeatmap {
+  margin-top: 14px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--color-brand-deep);
+}
+
 .modelHeatmaps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 .modelHeatmap {
@@ -180,6 +187,30 @@
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: var(--color-bg);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-align: left;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.modelHeatmap:hover {
+  border-color: rgba(143, 23, 76, 0.45);
+  transform: translateY(-1px);
+}
+
+.modelHeatmap:focus-visible {
+  outline: 3px solid rgba(143, 23, 76, 0.22);
+  outline-offset: 2px;
+}
+
+.modelHeatmapSelected {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 2px rgba(143, 23, 76, 0.14);
 }
 
 .modelHeatmap img {

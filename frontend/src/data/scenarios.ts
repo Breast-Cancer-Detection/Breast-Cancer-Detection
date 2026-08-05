@@ -100,7 +100,7 @@ export const PROCESSING_STAGES = [
   'Converting image to RGB',
   'Resizing image to 224 × 224',
   'Normalizing image',
-  'Running ResNet50 prediction',
+  'Running four-model ensemble prediction',
   'Generating Grad-CAM explanation',
   'Preparing results',
 ]
@@ -133,31 +133,31 @@ export function priorityTone(priority: string) {
 }
 
 export const PER_CLASS_METRICS = [
-  { label: 'Benign', precision: '79.31%', recall: '60.00%', f1: '68.32%', support: 115 },
+  { label: 'Benign', precision: '93.62%', recall: '76.52%', f1: '84.21%', support: 115 },
   {
     label: 'Carcinoma In Situ',
-    precision: '76.14%',
-    recall: '72.83%',
-    f1: '74.44%',
+    precision: '88.64%',
+    recall: '84.78%',
+    f1: '86.67%',
     support: 92,
   },
   {
     label: 'Invasive Carcinoma',
-    precision: '78.16%',
-    recall: '77.27%',
-    f1: '77.71%',
+    precision: '83.87%',
+    recall: '88.64%',
+    f1: '86.19%',
     support: 88,
   },
-  { label: 'Normal', precision: '69.57%', recall: '91.43%', f1: '79.01%', support: 105 },
+  { label: 'Normal', precision: '82.40%', recall: '98.10%', f1: '89.57%', support: 105 },
 ]
 
 export const OVERALL_METRICS = [
-  { value: '75.00%', label: 'Accuracy' },
-  { value: '75.79%', label: 'Macro precision' },
-  { value: '75.38%', label: 'Macro recall' },
-  { value: '74.87%', label: 'Macro F1' },
-  { value: '75.77%', label: 'Weighted precision' },
-  { value: '75.00%', label: 'Weighted recall' },
-  { value: '74.60%', label: 'Weighted F1' },
+  { value: '86.75%', label: 'Accuracy' },
+  { value: '87.13%', label: 'Macro precision' },
+  { value: '87.01%', label: 'Macro recall' },
+  { value: '86.66%', label: 'Macro F1' },
+  { value: '87.38%', label: 'Weighted precision' },
+  { value: '86.75%', label: 'Weighted recall' },
+  { value: '86.62%', label: 'Weighted F1' },
   { value: '400', label: 'Test samples' },
 ]

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../auth/AuthContext'
 import { useMediaFlags } from '../../hooks/useMediaQuery'
 import { Logo } from './Logo'
 import { Button } from '../ui/Button'
@@ -7,10 +8,13 @@ import styles from './LandingHeader.module.css'
 
 export function LandingHeader() {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const { isNavCollapsed } = useMediaFlags()
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   const closeMobile = () => setMobileNavOpen(false)
+  const goAnalyze = () => navigate(user ? '/workspace' : '/signin')
+  const goAuth = () => navigate(user ? '/workspace' : '/signin')
 
   useEffect(() => {
     if (!isNavCollapsed) setMobileNavOpen(false)
@@ -39,10 +43,10 @@ export function LandingHeader() {
               <a href="#about">About the Project</a>
             </nav>
             <div className={styles.actions}>
-              <Button variant="ghost" onClick={() => navigate('/signin')}>
-                Sign In
+              <Button variant="ghost" onClick={goAuth}>
+                {user ? 'Open workspace' : 'Sign In'}
               </Button>
-              <Button onClick={() => navigate('/workspace')}>Analyze an Image</Button>
+              <Button onClick={goAnalyze}>Analyze an Image</Button>
             </div>
           </>
         )}
@@ -89,16 +93,16 @@ export function LandingHeader() {
               fullWidth
               onClick={() => {
                 closeMobile()
-                navigate('/signin')
+                goAuth()
               }}
             >
-              Sign In
+              {user ? 'Open workspace' : 'Sign In'}
             </Button>
             <Button
               fullWidth
               onClick={() => {
                 closeMobile()
-                navigate('/workspace')
+                goAnalyze()
               }}
             >
               Analyze an Image

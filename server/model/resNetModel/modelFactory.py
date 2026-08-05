@@ -1,3 +1,4 @@
+#fileInvolved
 from torch import nn
 from torchvision.models import (
     ResNet50_Weights,
@@ -16,12 +17,14 @@ def build_model(
     num_classes: int,
     freeze_backbone: bool = True,
     dropout: float = 0.3,
+    pretrained: bool = True,
 ) -> nn.Module:
 
     model_name = model_name.lower()
 
     if model_name == "resnet50":
-        model = resnet50(weights=ResNet50_Weights.DEFAULT)
+        weights = ResNet50_Weights.DEFAULT if pretrained else None
+        model = resnet50(weights=weights)
 
         if freeze_backbone:
             for parameter in model.parameters():
@@ -34,7 +37,8 @@ def build_model(
         )
 
     elif model_name == "densenet121":
-        model = densenet121(weights=DenseNet121_Weights.DEFAULT)
+        weights = DenseNet121_Weights.DEFAULT if pretrained else None
+        model = densenet121(weights=weights)
 
         if freeze_backbone:
             for parameter in model.parameters():
@@ -47,7 +51,8 @@ def build_model(
         )
 
     elif model_name == "efficientnet_b0":
-        model = efficientnet_b0(weights=EfficientNet_B0_Weights.DEFAULT)
+        weights = EfficientNet_B0_Weights.DEFAULT if pretrained else None
+        model = efficientnet_b0(weights=weights)
 
         if freeze_backbone:
             for parameter in model.parameters():
@@ -60,7 +65,8 @@ def build_model(
         )
 
     elif model_name == "vgg16":
-        model = vgg16(weights=VGG16_Weights.DEFAULT)
+        weights = VGG16_Weights.DEFAULT if pretrained else None
+        model = vgg16(weights=weights)
 
         if freeze_backbone:
             for parameter in model.parameters():

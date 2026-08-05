@@ -11,6 +11,7 @@ __pycache__/
 
 # Local tool/agent state
 .agents/
+unused/
 
 # # Model outputs
 # resNetModel/checkpoints/

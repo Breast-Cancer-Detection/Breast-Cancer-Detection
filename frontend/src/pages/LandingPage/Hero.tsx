@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../auth/AuthContext'
 import { useMediaFlags } from '../../hooks/useMediaQuery'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { IMAGE_MODALITY_LABEL } from '../../data/constants'
@@ -7,6 +8,7 @@ import styles from './Hero.module.css'
 
 export function Hero() {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const { isDesktop } = useMediaFlags()
   const reduceMotion = useReducedMotion()
 
@@ -78,7 +80,10 @@ export function Hero() {
             explore the regions that influenced its decision through Grad-CAM.
           </p>
           <div className={styles.ctaRow}>
-            <Button className={styles.ctaPrimary} onClick={() => navigate('/workspace')}>
+            <Button
+              className={styles.ctaPrimary}
+              onClick={() => navigate(user ? '/workspace' : '/signin')}
+            >
               Analyze an Image
             </Button>
             <a href="#how-it-works" className={styles.ctaSecondary}>

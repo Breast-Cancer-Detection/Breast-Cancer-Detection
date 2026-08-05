@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../auth/AuthContext'
 import { Button } from '../../components/ui/Button'
 import { ScoreBar } from '../../components/ui/ScoreBar'
 import styles from './LandingSections.module.css'
 
 export function AnalysisPreview() {
   const navigate = useNavigate()
+  const { user } = useAuth()
 
   return (
     <section className={styles.analysis}>
@@ -34,7 +36,9 @@ export function AnalysisPreview() {
               <ScoreBar label="Invasive" pct={6.3} pctLabel="6.3%" />
               <ScoreBar label="Normal" pct={4.2} pctLabel="4.2%" />
             </div>
-            <Button onClick={() => navigate('/workspace')}>Analyze Another Image</Button>
+            <Button onClick={() => navigate(user ? '/workspace' : '/signin')}>
+              Analyze Another Image
+            </Button>
           </div>
         </div>
       </div>
@@ -63,6 +67,7 @@ export function ResponsibleSection() {
 
 export function FinalCta() {
   const navigate = useNavigate()
+  const { user } = useAuth()
 
   return (
     <section className={styles.finalCta}>
@@ -79,7 +84,10 @@ export function FinalCta() {
         <h2>Explore the prediction—and the reasoning behind it.</h2>
         <p>Upload a supported image and experience the complete explainable-AI workflow.</p>
         <div className={styles.finalActions}>
-          <Button className={styles.finalPrimary} onClick={() => navigate('/workspace')}>
+          <Button
+            className={styles.finalPrimary}
+            onClick={() => navigate(user ? '/workspace' : '/signin')}
+          >
             Start Analysis
           </Button>
           <Link to="/model" className={styles.finalSecondary}>

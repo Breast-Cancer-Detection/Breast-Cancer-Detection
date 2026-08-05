@@ -20,7 +20,7 @@ function EyeIcon({ open }: { open: boolean }) {
 
 export function ResetPasswordPage() {
   const navigate = useNavigate()
-  const { user, loading: authLoading, updatePassword } = useAuth()
+  const { user, loading: authLoading, updatePassword, signOut } = useAuth()
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPw, setShowPw] = useState(false)
@@ -58,8 +58,9 @@ export function ResetPasswordPage() {
       return
     }
 
-    setInfo('Password updated. Redirecting…')
-    navigate('/workspace', { replace: true })
+    setInfo('Password updated. Redirecting to sign in…')
+    await signOut()
+    navigate('/signin', { replace: true })
   }
 
   if (authLoading) {

@@ -159,6 +159,11 @@ export function WorkspacePage() {
         </svg>
         Use only de-identified research images.
       </div>
+      <div className={styles.inputCaveat}>
+        This research app classifies supported breast medical images into four learned classes:
+        Benign, Carcinoma In Situ, Invasive Carcinoma, and Normal. Results depend on submitting
+        the correct original image type.
+      </div>
 
       {uploadState === 'empty' && (
         <div

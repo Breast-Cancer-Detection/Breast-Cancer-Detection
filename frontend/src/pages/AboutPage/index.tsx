@@ -3,24 +3,29 @@ import styles from './AboutPage.module.css'
 
 const teamMembers = [
   {
-    name: 'Name Placeholder',
-    role: 'Project Lead',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit non augue facilisis pulvinar.',
+    name: 'Vamsi',
+    image: '/team/vamsi.jpg',
+    role: 'Authentication',
+    bio: 'Built the authentication and access-control system with Supabase (sign-up, sign-in, password reset, and protected routes) and designed the project\'s overall architecture.',
   },
   {
-    name: 'Name Placeholder',
+    name: 'Cephas',
+    image: '/team/cephas.jpeg',
     role: 'Frontend Developer',
-    bio: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+    bio: 'Built the project’s frontend user interface with React, creating responsive pages, reusable components, and a clean, intuitive user experience..',
   },
   {
     name: 'Allen Ramirez',
+    image: '/team/allen.jpg',
+    imageClassName: styles.allenPhoto,
     role: 'Backend Developer',
     bio: 'Integrated FastAPI backend and supported user inputs to model endpoints. Assisted with model design along the team\'s ML engineer.',
   },
   {
-    name: 'Name Placeholder',
+    name: 'Amina',
+    image: '/team/amina.jpg',
     role: 'Machine Learning Engineer',
-    bio: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.',
+    bio: 'Developed and evaluated an ensemble of 4 CNN models, implemented Grad-CAM explainability, trained and fine-tuned models.',
   },
 ]
 
@@ -36,7 +41,17 @@ export function AboutPage() {
 
         <section className={styles.grid} aria-label="Project team">
           {teamMembers.map((member) => (
-            <article key={`${member.role}-${member.name}`} className={styles.member}>
+            <article
+              key={`${member.role}-${member.name}`}
+              className={`${styles.member} ${member.image ? '' : styles.memberNoPhoto}`}
+            >
+              {member.image ? (
+                <img
+                  className={`${styles.photo} ${member.imageClassName ?? ''}`}
+                  src={member.image}
+                  alt={`${member.name} headshot`}
+                />
+              ) : null}
               <div className={styles.copy}>
                 <div className={styles.name}>{member.name}</div>
                 <div className={styles.role}>{member.role}</div>

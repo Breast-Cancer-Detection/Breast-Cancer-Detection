@@ -3,13 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 from app.api.routes import router
-from app.config import ALLOWED_ORIGINS
+from app.config import ALLOWED_ORIGIN_REGEX, ALLOWED_ORIGINS
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=ALLOWED_ORIGIN_REGEX,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

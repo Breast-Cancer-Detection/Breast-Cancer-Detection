@@ -24,17 +24,32 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
 }
 
 .member {
-  padding: 20px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background: var(--color-bg);
-  min-height: 150px;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  align-items: center;
+  gap: 34px;
+}
+
+.memberNoPhoto {
+  display: block;
+}
+
+.photo {
+  display: block;
+  width: 240px;
+  height: 320px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.allenPhoto {
+  object-position: center bottom;
 }
 
 .copy {
@@ -43,29 +58,35 @@
 
 .name {
   color: var(--color-text);
-  font-size: 17px;
+  font-size: clamp(22px, 3vw, 32px);
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 1.1;
   overflow-wrap: anywhere;
 }
 
 .role {
   color: var(--color-brand);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 750;
-  margin-top: 2px;
+  margin-top: 6px;
 }
 
 .copy p {
   color: var(--color-text-muted);
-  font-size: 13.5px;
+  font-size: 15px;
   line-height: 1.65;
-  margin-top: 13px;
+  margin-top: 16px;
 }
 
 @media (max-width: 760px) {
-  .grid {
+  .member {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .photo {
+    width: min(100%, 280px);
+    height: 360px;
   }
 }
 
@@ -74,7 +95,7 @@
     padding: 38px 18px 78px;
   }
 
-  .member {
-    padding: 16px;
+  .grid {
+    gap: 36px;
   }
 }

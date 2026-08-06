@@ -40,7 +40,7 @@ export function LandingHeader() {
               <a href="#how-it-works">How It Works</a>
               <a href="#explainable-ai">Explainable AI</a>
               <Link to="/model">About the Model</Link>
-              <a href="#about">About the Project</a>
+              <Link to="/about">The Team</Link>
             </nav>
             <div className={styles.actions}>
               <Button variant="ghost" onClick={goAuth}>
@@ -84,9 +84,9 @@ export function LandingHeader() {
           <Link to="/model" onClick={closeMobile}>
             About the Model
           </Link>
-          <a href="#about" onClick={closeMobile}>
-            About the Project
-          </a>
+          <Link to="/about" onClick={closeMobile}>
+            The Team
+          </Link>
           <div className={styles.mobileActions}>
             <Button
               variant="outline"

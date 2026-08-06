@@ -9,6 +9,10 @@ export async function requestPrediction(image: File): Promise<PredictionResponse
   const response = await fetch(`${API_BASE_URL}/api/predict`, {
     method: 'POST',
     body: formData,
+    // Free ngrok shows an interstitial unless this header is set.
+    headers: {
+      'ngrok-skip-browser-warning': 'true',
+    },
   })
 
   if (!response.ok) {

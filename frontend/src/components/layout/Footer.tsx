@@ -19,6 +19,7 @@ export function Footer() {
             <a href="#how-it-works">How It Works</a>
             <a href="#explainable-ai">Explainable AI</a>
             <Link to="/model">About the Model</Link>
+            <Link to="/about">The Team</Link>
           </div>
         </div>
       </div>

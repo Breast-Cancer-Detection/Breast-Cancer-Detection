@@ -13,6 +13,7 @@ import { WorkspacePage } from '../pages/WorkspacePage'
 import { ProcessingPage } from '../pages/ProcessingPage'
 import { ResultsPage } from '../pages/ResultsPage'
 import { ModelPage } from '../pages/ModelPage'
+import { AboutPage } from '../pages/AboutPage'
 
 export function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ export function AppRoutes() {
       <RouteEffects />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutPage />} />
 
         <Route element={<GuestRoute />}>
           <Route path="/signin" element={<SignInPage />} />
@@ -37,6 +39,7 @@ export function AppRoutes() {
             <Route path="/processing" element={<ProcessingPage />} />
             <Route path="/results" element={<ResultsPage />} />
             <Route path="/model" element={<ModelPage />} />
+            <Route path="/about" element={<AboutPage />} />
           </Route>
         </Route>
 

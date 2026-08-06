@@ -88,6 +88,13 @@ export function AppHeader() {
         >
           Model Details
         </button>
+        <button
+          type="button"
+          className={styles.link}
+          onClick={() => navigate('/about')}
+        >
+          About
+        </button>
 
         <div
           className={styles.menuWrap}

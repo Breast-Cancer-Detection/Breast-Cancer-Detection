@@ -1,4 +1,5 @@
 from fastapi import APIRouter, File, UploadFile
+from starlette.concurrency import run_in_threadpool
 
 from app.schemas.predict import ImageDetails, PredictionResponse
 from app.services.predictor import predictor
@@ -21,7 +22,9 @@ async def health():
 @router.post("/predict", response_model=PredictionResponse)
 async def predict(image: UploadFile = File(...)):
     pil_image, contents = await read_uploaded_image(image)
-    prediction = predictor.predict(pil_image)
+    # Inference is CPU-bound and would otherwise block the event loop, starving
+    # the health check and every other request for the duration.
+    prediction = await run_in_threadpool(predictor.predict, pil_image)
 
     return PredictionResponse(
         received=True,

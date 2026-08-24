@@ -1,4 +1,3 @@
-#fileInvolved
 from torch import nn
 from torchvision.models import (
     ResNet50_Weights,
@@ -73,10 +72,7 @@ def build_model(
                 parameter.requires_grad = False
 
         in_features = model.classifier[6].in_features
-        model.classifier[6] = nn.Sequential(
-            nn.Dropout(dropout),
-            nn.Linear(in_features, num_classes),
-        )
+        model.classifier[6] = nn.Linear(in_features, num_classes)
 
     else:
         raise ValueError(

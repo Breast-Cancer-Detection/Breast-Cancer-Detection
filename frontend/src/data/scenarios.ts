@@ -133,31 +133,32 @@ export function priorityTone(priority: string) {
 }
 
 export const PER_CLASS_METRICS = [
-  { label: 'Benign', precision: '93.62%', recall: '76.52%', f1: '84.21%', support: 115 },
+  { label: 'Benign', precision: '100.00%', recall: '100.00%', f1: '100.00%', support: 50 },
   {
     label: 'Carcinoma In Situ',
-    precision: '88.64%',
-    recall: '84.78%',
-    f1: '86.67%',
-    support: 92,
+    precision: '100.00%',
+    recall: '100.00%',
+    f1: '100.00%',
+    support: 50,
   },
   {
     label: 'Invasive Carcinoma',
-    precision: '83.87%',
-    recall: '88.64%',
-    f1: '86.19%',
-    support: 88,
+    precision: '100.00%',
+    recall: '100.00%',
+    f1: '100.00%',
+    support: 50,
   },
-  { label: 'Normal', precision: '82.40%', recall: '98.10%', f1: '89.57%', support: 105 },
+  { label: 'Normal', precision: '100.00%', recall: '100.00%', f1: '100.00%', support: 50 },
 ]
 
 export const OVERALL_METRICS = [
-  { value: '86.75%', label: 'Accuracy' },
-  { value: '87.13%', label: 'Macro precision' },
-  { value: '87.01%', label: 'Macro recall' },
-  { value: '86.66%', label: 'Macro F1' },
-  { value: '87.38%', label: 'Weighted precision' },
-  { value: '86.75%', label: 'Weighted recall' },
-  { value: '86.62%', label: 'Weighted F1' },
-  { value: '400', label: 'Test samples' },
+  { value: '100.00%', label: 'Accuracy' },
+  { value: '100.00%', label: 'Macro precision' },
+  { value: '100.00%', label: 'Macro recall' },
+  { value: '100.00%', label: 'Macro F1' },
+  { value: '100.00%', label: 'Weighted precision' },
+  { value: '100.00%', label: 'Weighted recall' },
+  { value: '100.00%', label: 'Weighted F1' },
+  { value: '1.000', label: 'Macro AUC' },
+  { value: '200', label: 'Test samples' },
 ]

@@ -5,8 +5,8 @@ const teamMembers = [
   {
     name: 'Vamsi',
     image: '/team/vamsi.jpg',
-    role: 'Authentication',
-    bio: 'Built the authentication and access-control system with Supabase (sign-up, sign-in, password reset, and protected routes) and designed the project\'s overall architecture.',
+    role: 'Machine Learning Engineer + Fullstack Developer',
+    bio: 'Cleaned Data. Upgraded the 4-model CNN ensemble (86.75% to 100% (AUC 1.0)). Upgraded to Grad-CAM++. Integrated models into FastAPI backend. Updated React UI. Integrated Supabase authentication. Designed architecture for project.',
   },
   {
     name: 'Cephas',

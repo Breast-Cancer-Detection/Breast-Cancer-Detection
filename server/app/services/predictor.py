@@ -1,4 +1,3 @@
-#fileInvolved
 import base64
 from io import BytesIO
 
@@ -64,7 +63,12 @@ def extract_state_dict(checkpoint):
 class Predictor:
     def __init__(self, checkpoint_dir=DEFAULT_CHECKPOINT_DIR):
         self.checkpoint_dir = checkpoint_dir
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        if torch.cuda.is_available():
+            self.device = torch.device("cuda")
+        elif torch.backends.mps.is_available():
+            self.device = torch.device("mps")
+        else:
+            self.device = torch.device("cpu")
         self.models = {}
         self.classes = FALLBACK_CLASSES
         self.image_size = 224
@@ -193,9 +197,25 @@ class Predictor:
                 logits[0, target_class].backward()
 
                 if activations is None or gradients is None:
-                    raise RuntimeError(f"Grad-CAM hooks failed for {model_name}.")
+                    raise RuntimeError(f"Grad-CAM++ hooks failed for {model_name}.")
 
-                weights = gradients.mean(dim=(2, 3), keepdim=True)
+                # Grad-CAM++ channel weights (Chattopadhyay et al.)
+                # alpha_ij^k = G^2 / (2*G^2 + A_sum * G^3)
+                # w^k = sum_{i,j} alpha_ij^k * ReLU(G_ij^k)
+                grads_power_2 = gradients.pow(2)
+                grads_power_3 = grads_power_2 * gradients
+                sum_activations = activations.sum(dim=(2, 3), keepdim=True)
+                denom = (2.0 * grads_power_2) + (sum_activations * grads_power_3)
+                denom = torch.where(
+                    denom != 0.0,
+                    denom,
+                    torch.full_like(denom, 1e-8),
+                )
+                alpha = grads_power_2 / denom
+                weights = (alpha * torch.relu(gradients)).sum(
+                    dim=(2, 3),
+                    keepdim=True,
+                )
                 cam = torch.relu((weights * activations).sum(dim=1, keepdim=True))
                 cam = F.interpolate(
                     cam,

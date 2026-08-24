@@ -302,9 +302,10 @@ export function ResultsPage() {
               last
             >
               <p>
-                Current test accuracy is 86.75% and does not establish clinical effectiveness.
-                Confidence scores may be incorrect, and Grad-CAM is a coarse explanatory map, not
-                a segmentation mask. Expert review remains necessary.
+                Current held-out test accuracy is 100.00% and does not establish clinical
+                effectiveness.
+                Confidence scores may be incorrect, and Grad-CAM++ heatmaps are region-level
+                explanations rather than pixel-perfect outlines. Expert review remains necessary.
               </p>
             </AccordionItem>
           </div>

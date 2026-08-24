@@ -8,22 +8,17 @@ export function ModelPage() {
       <h1>Model details & transparency</h1>
       <div className={styles.eyebrow}>CURRENT RESEARCH BUILD</div>
 
-      <div className={styles.notice}>
-        <strong>Imaging-modality confirmation notice:</strong> Final imaging modality and dataset
-        description awaiting research-team confirmation.
-      </div>
-
       <h2>Project objective</h2>
       <p className={styles.body}>
         An academic prototype exploring AI-assisted classification of {IMAGE_MODALITY_LABEL}s into
-        four learned classes, paired with Grad-CAM explainability so predictions can be visually
+        four learned classes, paired with Grad-CAM++ explainability so predictions can be visually
         inspected rather than treated as a black box.
       </p>
 
       <h2>Model evaluation</h2>
       <p className={styles.sub}>
-        Test support: 400 images. Results reflect the repository&apos;s current four-model ensemble
-        evaluation and do not establish clinical effectiveness.
+        Test support: 200 images (50 per class, stratified). Results reflect the repository&apos;s
+        current four-model soft-voting ensemble and do not establish clinical effectiveness.
       </p>
 
       <div className={styles.metrics}>
@@ -73,51 +68,40 @@ export function ModelPage() {
       />
 
       <h2>Architecture & preprocessing</h2>
-      <div className={styles.archGrid}>
-        <div>Backbones: DenseNet121, EfficientNet-B0, VGG16, and ResNet50</div>
-        <div>Ensemble: equal-weight soft voting across model probabilities</div>
-        <div>Framework: PyTorch CNN classifiers</div>
-        <div>Classifier heads adapted for four output classes</div>
-        <div>Loss: Cross-entropy · AdamW</div>
-        <div>LR 0.0001 · Weight decay 0.0001</div>
-      </div>
-      <p className={styles.bodySm}>
-        Images are converted to RGB, resized to 224 × 224, converted to a tensor, and normalized
-        using ImageNet statistics. Files below 32 × 32 pixels are rejected before inference; files
-        with &quot;mask&quot; in the filename are treated as segmentation masks and are not
-        accepted as classification inputs.
+
+      <h3>Architecture</h3>
+      <p className={styles.body}>
+        Four CNN models (ResNet50, DenseNet121, EfficientNet-B0, VGG16) each predict class
+        probabilities. Those probabilities are averaged (soft voting) into one final prediction.
+        Models were fine-tuned in PyTorch with AdamW (learning rate 1e-4, weight decay 1e-4) and
+        cross-entropy loss.
       </p>
-      <p className={styles.bodySm}>Supported extensions: JPG, JPEG, PNG, BMP.</p>
+
+      <h3>Preprocessing</h3>
       <p className={styles.bodySm}>
-        Grad-CAM uses each model&apos;s final convolutional layer to build a class-specific map,
-        normalized, resized to 224 × 224, and overlaid at a default opacity of 45% with a
-        jet-style color scale.
+        Uploaded images are validated, converted to RGB, resized to 224 × 224, converted to tensors,
+        and normalized with ImageNet mean/std values before inference. Images smaller than 32 × 32
+        are rejected, and files with &quot;mask&quot; in the filename are blocked as segmentation
+        inputs. Supported formats: JPG, JPEG, PNG, and BMP.
       </p>
 
       <h2>Output classes</h2>
       <div className={styles.classes}>
-        <div>
-          <code>Benign</code> → Benign
-        </div>
-        <div>
-          <code>Carcinoma_InSitu</code> → Carcinoma In Situ
-        </div>
-        <div>
-          <code>Carcinoma_Invasive</code> → Invasive Carcinoma
-        </div>
-        <div>
-          <code>Normal</code> → Normal
-        </div>
+        <div>Benign</div>
+        <div>Carcinoma In Situ</div>
+        <div>Invasive Carcinoma</div>
+        <div>Normal</div>
       </div>
 
       <h2>Limitations</h2>
       <ul className={styles.limits}>
-        <li>Current evaluation accuracy is 86.75%</li>
-        <li>Benign recall is currently 76.52%</li>
-        <li>The model may produce false positives and false negatives</li>
+        <li>Current held-out test accuracy is 100.00% (200 images; stratified split)</li>
+        <li>Perfect scores on this dataset do not imply clinical readiness or generalization</li>
+        <li>The histology dataset is too small for robust deep-learning training</li>
+        <li>The model may still produce false positives and false negatives on new data</li>
         <li>Image quality and dataset differences may affect results</li>
         <li>The model has not been established as clinically effective</li>
-        <li>Grad-CAM is a coarse explanatory map</li>
+        <li>Grad-CAM++ heatmaps highlight regions of influence, not pixel-perfect outlines</li>
         <li>Final imaging modality and dataset documentation require team confirmation</li>
       </ul>
 

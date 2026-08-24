@@ -1,4 +1,3 @@
-#fileInvolved
 from fastapi import APIRouter, File, UploadFile
 
 from app.schemas.predict import ImageDetails, PredictionResponse

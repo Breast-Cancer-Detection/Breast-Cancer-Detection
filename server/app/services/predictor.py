@@ -8,6 +8,7 @@ import torch.nn.functional as F
 from PIL import Image
 
 from app.config import DEFAULT_CHECKPOINT_DIR
+from app.services.checkpoints import ensure_checkpoints
 from app.services.preprocessing import preprocess_image
 from model.resNetModel.modelFactory import build_model
 
@@ -84,6 +85,15 @@ class Predictor:
         return list(self.models.keys())
 
     def _load_models(self) -> None:
+        try:
+            ensure_checkpoints(
+                self.checkpoint_dir,
+                [CHECKPOINT_FILENAMES[name] for name in MODEL_NAMES],
+            )
+        except RuntimeError as exc:
+            self.load_error = str(exc)
+            return
+
         if not self.checkpoint_dir.exists():
             self.load_error = f"Checkpoint directory not found: {self.checkpoint_dir}"
             return

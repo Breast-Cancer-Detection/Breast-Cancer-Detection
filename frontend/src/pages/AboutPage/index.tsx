@@ -6,7 +6,7 @@ const teamMembers = [
     name: 'Vamsi',
     image: '/team/vamsi.jpg',
     role: 'Machine Learning Engineer + Fullstack Developer',
-    bio: 'Cleaned Data. Upgraded the 4-model CNN ensemble (86.75% to 100% (AUC 1.0)). Upgraded to Grad-CAM++. Integrated models into FastAPI backend. Updated React UI. Integrated Supabase authentication. Designed architecture for project.',
+    bio: 'Cleaned Data. Upgraded the 4-model CNN ensemble (86.75% to 100% (AUC 1.0)). Upgraded to Grad-CAM++. Integrated models into FastAPI backend. Updated React UI. Integrated Supabase authentication. Uploaded frontend on Vercel and backend on Railway. Designed architecture for project',
   },
   {
     name: 'Cephas',

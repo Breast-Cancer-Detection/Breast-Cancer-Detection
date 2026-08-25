@@ -136,10 +136,6 @@ export function ModelPage() {
           The original set lacked Benign images, so a separate Benign-only dataset was added
         </li>
         <li>Perfect scores here do not imply clinical readiness or generalization</li>
-        <li>
-          After MD5 (9,000 → 6,995 unique), train still has 3,633 Benign vs ~330 of each other
-          class; weights reduce but do not remove that skew
-        </li>
         <li>The dataset is still small for robust deep-learning training</li>
         <li>The model may still produce false positives and false negatives on new data</li>
         <li>The model has not been established as clinically effective</li>

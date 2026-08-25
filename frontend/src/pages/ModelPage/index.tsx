@@ -17,16 +17,16 @@ export function ModelPage() {
 
       <h2>Model evaluation</h2>
       <p className={styles.sub}>
-        Test support: 1,128 images after MD5 deduplication and a grouped, class-stratified split
-        (Benign 926, Carcinoma In Situ 41, Invasive Carcinoma 81, Normal 80). Results are from the
-        four-model soft-voting ensemble on that held-out split and do not establish clinical
-        effectiveness.
+        Test support: 1,128 images (Benign 926, In Situ 41, Invasive 81, Normal 80) after MD5
+        dedup of 9,000 → 6,995 unique images and a grouped, class-stratified split. The 100%
+        scores below are the Colab ensemble of all four newly trained checkpoints, including the
+        weak VGG. The live site is the three new backbones plus the previous VGG. Not clinical
+        evidence.
       </p>
       <div className={styles.notice}>
-        <strong>How to read the 100% score.</strong> Every test Benign image (926) came from the
-        added breast-benign dataset. The original Kaggle histology test slice (202 images) contained
-        In Situ, Invasive, and Normal only — no Benign. Perfect accuracy here does not mean the
-        original Benign class was re-tested.
+        <strong>How to read the 100% score.</strong> All 926 test Benign images came from the
+        added breast-benign set. The 202 original-Kaggle test images were In Situ, Invasive, and
+        Normal only — original Benign was not in this test split.
       </div>
 
       <div className={styles.metrics}>
@@ -103,14 +103,11 @@ export function ModelPage() {
 
       <h3>Architecture</h3>
       <p className={styles.body}>
-        Four CNN models (ResNet50, DenseNet121, EfficientNet-B0, VGG16) each predict class
-        probabilities. Those probabilities are averaged (soft voting) into one final prediction.
-        Models were fine-tuned in PyTorch for 5 epochs with AdamW (learning rate 1e-4, weight
-        decay 1e-4) and class-weighted cross-entropy to offset Benign over-representation after
-        extra data was added. Training combined the original 4-class Kaggle histology set with
-        additional breast-benign images. On this run ResNet50, DenseNet121, and EfficientNet-B0
-        reached 99.5%+ validation accuracy; VGG16 peaked at 84% and was not replaced in
-        production.
+        Soft-voting over ResNet50, DenseNet121, EfficientNet-B0, and VGG16. Fine-tuned 5 epochs
+        with AdamW (lr 1e-4, weight decay 1e-4) and class-weighted cross-entropy (Benign 0.321;
+        In Situ 3.117; Invasive 3.533; Normal 3.576). Data: original Kaggle 4-class histology plus
+        maestroalert/cancer <code>breast_benign</code> only. Val acc: ResNet 99.75%, DenseNet
+        99.58%, EfficientNet 99.50%. VGG peaked at 84% and was not replaced on the live site.
       </p>
 
       <h3>Preprocessing</h3>
@@ -132,20 +129,26 @@ export function ModelPage() {
       <h2>Limitations</h2>
       <ul className={styles.limits}>
         <li>
-          Held-out ensemble accuracy is 100.00% on 1,128 images, but the test split is unbalanced
-          and contains no original-Kaggle Benign images
+          The 100% score is the Colab four-new-checkpoint ensemble, not the live stack (new
+          ResNet/DenseNet/EfficientNet + previous VGG)
         </li>
-        <li>Perfect scores on this dataset do not imply clinical readiness or generalization</li>
         <li>
-          After deduplication, train still has far more Benign images (3,633) than the other
-          classes (~330 each); class weights reduce but do not remove that skew
+          Test split is unbalanced (926 extra-set Benign vs 202 original-Kaggle images with no
+          Benign)
         </li>
-        <li>The histology dataset is still small for robust deep-learning training</li>
+        <li>Perfect scores here do not imply clinical readiness or generalization</li>
+        <li>
+          After MD5 (9,000 → 6,995 unique), train still has 3,633 Benign vs ~330 of each other
+          class; weights reduce but do not remove that skew
+        </li>
+        <li>
+          Training data is H&amp;E histology from the original Kaggle 4-class set plus
+          maestroalert/cancer breast-benign images only
+        </li>
+        <li>The dataset is still small for robust deep-learning training</li>
         <li>The model may still produce false positives and false negatives on new data</li>
-        <li>Image quality and dataset differences may affect results</li>
         <li>The model has not been established as clinically effective</li>
         <li>Grad-CAM++ heatmaps highlight regions of influence, not pixel-perfect outlines</li>
-        <li>Final imaging modality and dataset documentation require team confirmation</li>
       </ul>
 
       <h2>Responsible use</h2>

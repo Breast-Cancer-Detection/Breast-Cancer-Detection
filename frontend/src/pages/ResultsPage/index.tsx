@@ -302,8 +302,9 @@ export function ResultsPage() {
               last
             >
               <p>
-                Current held-out test accuracy is 100.00% on 1,128 images (grouped split; 926 of
-                those are extra-set Benign) and does not establish clinical effectiveness.
+                Colab held-out accuracy is 100.00% on 1,128 images (926 extra-set Benign; no
+                original-Kaggle Benign in test). That figure is not the live ensemble and does not
+                establish clinical effectiveness.
                 Confidence scores may be incorrect, and Grad-CAM++ heatmaps are region-level
                 explanations rather than pixel-perfect outlines. Expert review remains necessary.
               </p>

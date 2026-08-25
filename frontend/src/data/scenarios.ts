@@ -133,22 +133,37 @@ export function priorityTone(priority: string) {
 }
 
 export const PER_CLASS_METRICS = [
-  { label: 'Benign', precision: '100.00%', recall: '100.00%', f1: '100.00%', support: 50 },
+  { label: 'Benign', precision: '100.00%', recall: '100.00%', f1: '100.00%', support: 926 },
   {
     label: 'Carcinoma In Situ',
     precision: '100.00%',
     recall: '100.00%',
     f1: '100.00%',
-    support: 50,
+    support: 41,
   },
   {
     label: 'Invasive Carcinoma',
     precision: '100.00%',
     recall: '100.00%',
     f1: '100.00%',
-    support: 50,
+    support: 81,
   },
-  { label: 'Normal', precision: '100.00%', recall: '100.00%', f1: '100.00%', support: 50 },
+  { label: 'Normal', precision: '100.00%', recall: '100.00%', f1: '100.00%', support: 80 },
+]
+
+export const SOURCE_METRICS = [
+  {
+    label: 'Original Kaggle histology',
+    accuracy: '100.00%',
+    support: 202,
+    note: 'InSitu 41, Invasive 81, Normal 80. No Benign images landed in this test split.',
+  },
+  {
+    label: 'Added breast-benign set',
+    accuracy: '100.00%',
+    support: 926,
+    note: 'All 926 test Benign images came from this source.',
+  },
 ]
 
 export const OVERALL_METRICS = [
@@ -160,5 +175,5 @@ export const OVERALL_METRICS = [
   { value: '100.00%', label: 'Weighted recall' },
   { value: '100.00%', label: 'Weighted F1' },
   { value: '1.000', label: 'Macro AUC' },
-  { value: '200', label: 'Test samples' },
+  { value: '1,128', label: 'Test samples' },
 ]

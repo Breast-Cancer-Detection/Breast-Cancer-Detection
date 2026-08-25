@@ -302,8 +302,8 @@ export function ResultsPage() {
               last
             >
               <p>
-                Current held-out test accuracy is 100.00% and does not establish clinical
-                effectiveness.
+                Current held-out test accuracy is 100.00% on 1,128 images (grouped split; 926 of
+                those are extra-set Benign) and does not establish clinical effectiveness.
                 Confidence scores may be incorrect, and Grad-CAM++ heatmaps are region-level
                 explanations rather than pixel-perfect outlines. Expert review remains necessary.
               </p>

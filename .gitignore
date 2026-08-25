@@ -20,8 +20,8 @@ unused/
 # *.pt
 # *.pth
 
-# Datasets and local data
-data/
+# Datasets and local data (repo root only — do not ignore frontend/src/data)
+/data/
 *.csv
 *.xlsx
 

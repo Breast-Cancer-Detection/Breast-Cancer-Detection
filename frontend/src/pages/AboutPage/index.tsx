@@ -6,13 +6,13 @@ const teamMembers = [
     name: 'Vamsi',
     image: '/team/vamsi.jpg',
     role: 'Machine Learning Engineer + Fullstack Developer',
-    bio: 'Cleaned data, fine-tuned a 4-model CNN ensemble from 86.75% to 100% test accuracy, integrated it into a FastAPI backend, added Supabase authentication for data protection, and deployed through Railway, Hugging Face, and Vercel.',
+    bio: 'Cleaned data, fine-tuned a 4-model CNN ensemble from 86.75% to 100% test accuracy, integrated it into a FastAPI backend, added Supabase authentication for data protection, and deployed application through Railway, Hugging Face, and Vercel.',
   },
   {
     name: 'Cephas',
     image: '/team/cephas.jpeg',
     role: 'Frontend Developer',
-    bio: 'Built the project’s frontend user interface with React, creating responsive pages, reusable components, and a clean, intuitive user experience..',
+    bio: 'Built the project’s frontend user interface with React, creating responsive pages, reusable components, and a clean, intuitive user experience.',
   },
   {
     name: 'Allen Ramirez',

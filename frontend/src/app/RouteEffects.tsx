@@ -10,7 +10,7 @@ const TITLES: Record<string, string> = {
   '/workspace': 'Analyze Image · AI for Breast Health',
   '/processing': 'Analyzing… · AI for Breast Health',
   '/results': 'Analysis Results · AI for Breast Health',
-  '/model': 'Model Details · AI for Breast Health',
+  '/model': 'About the Model · AI for Breast Health',
 }
 
 /** Sets document title and scrolls to top on route change. */

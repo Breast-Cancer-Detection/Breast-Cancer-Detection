@@ -153,17 +153,47 @@ export const PER_CLASS_METRICS = [
 
 export const SOURCE_METRICS = [
   {
-    label: 'Original Kaggle histology',
+    label: 'Original Kaggle Histology',
     accuracy: '100.00%',
     support: 202,
-    note: 'InSitu 41, Invasive 81, Normal 80. No Benign images landed in this test split.',
+    note: 'In Situ, Invasive, and Normal only. No Benign.',
   },
   {
-    label: 'Added breast-benign set',
+    label: 'Added Breast-Benign Dataset',
     accuracy: '100.00%',
     support: 926,
-    note: 'All 926 test Benign images came from this source.',
+    note: 'All 926 test Benign images.',
   },
+]
+
+export const EVAL_SET_COUNTS = [
+  { label: 'Benign', support: 926 },
+  { label: 'Carcinoma In Situ', support: 41 },
+  { label: 'Invasive Carcinoma', support: 81 },
+  { label: 'Normal', support: 80 },
+]
+
+export const TRAIN_SETTINGS = [
+  { label: 'Optimizer', value: 'AdamW' },
+  { label: 'Learning Rate', value: '1e-4' },
+  { label: 'Weight Decay', value: '1e-4' },
+  { label: 'Epochs', value: '5' },
+  { label: 'Loss Function', value: 'Class-weighted Cross Entropy' },
+  { label: 'Input Size', value: '224 × 224' },
+]
+
+export const CLASS_WEIGHTS = [
+  { label: 'Benign', weight: '0.321' },
+  { label: 'Carcinoma In Situ', weight: '3.117' },
+  { label: 'Invasive Carcinoma', weight: '3.533' },
+  { label: 'Normal', weight: '3.576' },
+]
+
+export const VAL_ACCURACIES = [
+  { label: 'ResNet50', value: '99.75%' },
+  { label: 'DenseNet121', value: '99.58%' },
+  { label: 'EfficientNet-B0', value: '99.50%' },
+  { label: 'VGG16', value: '84.00% peak' },
 ]
 
 export const OVERALL_METRICS = [

@@ -13,14 +13,23 @@ const TITLES: Record<string, string> = {
   '/model': 'About the Model · AI for Breast Health',
 }
 
-/** Sets document title and scrolls to top on route change. */
+/** Sets document title and scrolls to top, or to a landing-page hash target. */
 export function RouteEffects() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
 
   useEffect(() => {
     document.title = TITLES[pathname] ?? 'AI for Breast Health'
-    window.scrollTo(0, 0)
-  }, [pathname])
+    if (!hash) {
+      window.scrollTo(0, 0)
+      return
+    }
+
+    const id = decodeURIComponent(hash.slice(1))
+    const scrollToHash = () => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    scrollToHash()
+    const timer = window.setTimeout(scrollToHash, 80)
+    return () => window.clearTimeout(timer)
+  }, [pathname, hash])
 
   return null
 }

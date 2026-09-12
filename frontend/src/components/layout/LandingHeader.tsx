@@ -37,8 +37,8 @@ export function LandingHeader() {
         {!isNavCollapsed && (
           <>
             <nav className={styles.nav} aria-label="Primary">
-              <a href="#how-it-works">How It Works</a>
-              <a href="#explainable-ai">Explainable AI</a>
+              <Link to="/#how-it-works">How It Works</Link>
+              <Link to="/#explainable-ai">Explainable AI</Link>
               <Link to="/model">About the Model</Link>
               <Link to="/about">The Team</Link>
             </nav>
@@ -75,12 +75,12 @@ export function LandingHeader() {
 
       {mobileNavOpen && (
         <div id="mobile-nav-panel" className={styles.mobilePanel} role="navigation" aria-label="Mobile">
-          <a href="#how-it-works" onClick={closeMobile}>
+          <Link to="/#how-it-works" onClick={closeMobile}>
             How It Works
-          </a>
-          <a href="#explainable-ai" onClick={closeMobile}>
+          </Link>
+          <Link to="/#explainable-ai" onClick={closeMobile}>
             Explainable AI
-          </a>
+          </Link>
           <Link to="/model" onClick={closeMobile}>
             About the Model
           </Link>

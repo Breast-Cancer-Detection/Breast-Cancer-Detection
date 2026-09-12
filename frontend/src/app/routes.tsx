@@ -23,6 +23,7 @@ export function AppRoutes() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/model" element={<ModelPage />} />
 
         <Route element={<GuestRoute />}>
           <Route path="/signin" element={<SignInPage />} />
@@ -38,8 +39,6 @@ export function AppRoutes() {
             <Route path="/workspace" element={<WorkspacePage />} />
             <Route path="/processing" element={<ProcessingPage />} />
             <Route path="/results" element={<ResultsPage />} />
-            <Route path="/model" element={<ModelPage />} />
-            <Route path="/about" element={<AboutPage />} />
           </Route>
         </Route>
 

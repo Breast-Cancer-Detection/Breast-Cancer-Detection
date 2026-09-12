@@ -16,8 +16,8 @@ export function Footer() {
         <div className={styles.navBlock}>
           <div className={styles.navTitle}>Navigate</div>
           <div className={styles.links}>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#explainable-ai">Explainable AI</a>
+            <Link to="/#how-it-works">How It Works</Link>
+            <Link to="/#explainable-ai">Explainable AI</Link>
             <Link to="/model">About the Model</Link>
             <Link to="/about">The Team</Link>
           </div>

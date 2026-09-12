@@ -1,3 +1,4 @@
+import { LandingHeader } from '../../components/layout/LandingHeader'
 import {
   CLASS_WEIGHTS,
   EVAL_SET_COUNTS,
@@ -11,7 +12,9 @@ import styles from './ModelPage.module.css'
 
 export function ModelPage() {
   return (
-    <div className={styles.root}>
+    <>
+      <LandingHeader />
+      <main id="main-content" className={styles.root}>
       <header className={styles.header}>
         <div className={styles.eyebrow}>CURRENT RESEARCH BUILD</div>
         <h1>About the Model</h1>
@@ -434,6 +437,7 @@ export function ModelPage() {
           </p>
         </div>
       </section>
-    </div>
+      </main>
+    </>
   )
 }
